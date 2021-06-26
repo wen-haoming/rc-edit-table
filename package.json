@@ -2,15 +2,41 @@
   "name": "rc-editable",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "lib/index.d.ts",
+  "sideEffects": false,
+  "keywords": [
+    "react",
+    "editable",
+    "edit",
+    "component",
+    "typescript"
+  ],
+  "files": [
+    "lib",
+    "es",
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build-lib",
+    "build-lib": "cross-env BUILD_TYPE=lib father-build && cross-env BUILD_TYPE=es father-build",
+    "dev": "vite serve demo",
+    "build:demo": "tsc && vite build",
+    "serve": "vite preview",
+    "test": "umi-test",
+    "test:coverage": "umi-test --coverage",
+    "test:update": "umi-test --updateSnapshot",
+    "tsc": "tsc --noEmit",
+    "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx  --fix --format=pretty ./src && npm run lint:prettier",
+    "prettier": "prettier --write \"**/**.{js,jsx,tsx,ts,less,md,json}\"",
+    "lint:prettier": "npm run prettier &&  git diff && prettier --version && prettier --check \"./src\" --end-of-line auto"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wen-haoming/rc-editable.git"
   },
-  "author": "",
+  "author": "wenhaoming-435203093@qq.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wen-haoming/rc-editable/issues"
@@ -35,5 +61,8 @@
     "typescript": "^4.3.2",
     "umi-test": "^1.9.6",
     "vite": "^2.3.5"
+  },
+  "peerDependencies": {
+    "react": ">=16.9.0"
   }
 }
