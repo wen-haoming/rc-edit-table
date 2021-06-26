@@ -1,3 +1,3 @@
-import {RCeditable} from './components'
+import RCeditable from './Editable';
 
-export default RCeditable
+export default RCeditable;

@@ -1,5 +1,5 @@
 {
-  "name": "rc-editable",
+  "name": "rc-edit-table",
   "version": "0.0.1",
   "description": "",
   "main": "lib/index.js",
@@ -64,5 +64,8 @@
   },
   "peerDependencies": {
     "react": ">=16.9.0"
+  },
+  "dependencies": {
+    "classnames": "^2.3.1"
   }
 }

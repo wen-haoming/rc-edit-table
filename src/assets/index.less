@@ -1,0 +1,103 @@
+@tablePrefixCls: rc-edit-table;
+@text-color: #666;
+@font-size-base: 12px;
+@line-height: 1.5;
+@table-border-color: #e9e9e9;
+@table-head-background-color: #f7f7f7;
+@vertical-padding: 16px;
+@horizontal-padding: 8px;
+@border-width: 1px;
+@border-color: rgb(217, 217, 217);
+@border: @border-width solid @border-color;
+@cell-padding: @vertical-padding @horizontal-padding;
+@cell-margin: -@vertical-padding -@horizontal-padding;
+
+
+.@{tablePrefixCls} {
+  position: relative;
+  box-sizing: border-box;
+  color: @text-color;
+  font-size: @font-size-base;
+  line-height: @line-height;
+  border-spacing:0;
+  // ================= Global =================
+
+    th,
+    td {
+    position: relative;
+    box-sizing: border-box;
+    padding: 0;
+    white-space: normal;
+    word-break: break-word;
+    border: none;
+    vertical-align: top;
+    p{
+        outline: none;
+        margin: 0;
+        padding: 5px;
+    }
+  }
+  tr{
+      height: 30px;
+  }
+  &-td-content{
+      
+  }
+  &-td-bg{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: -1;
+    box-sizing: border-box;
+    .@{tablePrefixCls}{
+        &-border-top{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            height: 0;
+            border-top: 1px solid rgb(217, 217, 217);
+        }
+        &-border-bottom{
+            display: block;
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            height: 0;
+            border-bottom: 1px solid rgb(217, 217, 217);
+        }
+        &-border-left{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+            width: 0;
+            border-left: 1px solid rgb(217, 217, 217);
+        }
+        &-border-right{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0px;
+            z-index: 1;
+            width: 0;
+            border-right: 1px solid rgb(217, 217, 217);
+        }
+        &-border-none{
+                display: none;
+        }
+        
+    }
+    
+}
+
+
+  
+
+}
