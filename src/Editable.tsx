@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useMemo, useEffect } from 'react';
 import classNames from 'classnames';
 import './assets/index.less';
+
+import Cell from './Cell';
 
 interface Props {
   prefixCls?: string;
@@ -9,12 +11,20 @@ interface Props {
 
 const initialData = [
   [1, 2, 3],
-  ['a', 'b', 'c'],
+  ['a', 'b', 'c', false, 1, 2, 3, 4],
   [null, null, undefined],
 ];
 
-export const RCeditable: React.FC<Props> = (props) => {
+export const RcEditable: React.FC<Props> = (props) => {
   const { prefixCls = 'rc-edit-table', dataSource = initialData } = props;
+
+  useEffect(() => {
+    document.execCommand('defaultParagraphSeparator', false, 'p');
+  }, []);
+
+  const maxColLength = useMemo(() => {
+    return dataSource.reduce((pre, curArr) => (curArr.length >= pre ? curArr.length : pre), 0);
+  }, [dataSource.length]);
 
   return (
     <div className={classNames(`${prefixCls}-wrap`)}>
@@ -26,49 +36,29 @@ export const RCeditable: React.FC<Props> = (props) => {
           </tr>
         </thead> */}
         <colgroup>
-          <col width="161" />
-          <col width="187" />
-          <col width="214" />
-          <col width="125" />
+          {Array(maxColLength)
+            .fill('')
+            .map((_, idx) => {
+              return <col width="161" key={idx} />;
+            })}
         </colgroup>
         <tbody className={classNames(`${prefixCls}-body`)}>
-          {initialData.map((trItem, trIdx) => {
+          {dataSource.map((trItem, trIdx) => {
             return (
               <tr key={`tr-${trIdx}`}>
-                {trItem.map((tdItem, tdIdx) => {
-                  return (
-                    <td key={`td-${trIdx}-${tdIdx}`}>
-                      <div className={classNames(`${prefixCls}-td-content`)}>
-                        <p contentEditable>{tdItem}</p>
-                      </div>
-                      <div className={classNames(`${prefixCls}-td-bg`)}>
-                        <div
-                          className={classNames({
-                            [`${prefixCls}-border-top`]: true,
-                            [`${prefixCls}-border-none`]: trIdx !== 0,
-                          })}
-                        ></div>
-                        <div
-                          className={classNames({
-                            [`${prefixCls}-border-bottom`]: true,
-                          })}
-                        ></div>
-                        <div
-                          className={classNames({
-                            [`${prefixCls}-border-left`]: true,
-                            [`${prefixCls}-border-none`]: tdIdx !== 0,
-
-                          })}
-                        ></div>
-                        <div
-                          className={classNames({
-                            [`${prefixCls}-border-right`]: true,
-                          })}
-                        ></div>
-                      </div>
-                    </td>
-                  );
-                })}
+                {Array(maxColLength)
+                  .fill('')
+                  .map((_, tdIdx) => {
+                    return (
+                      <Cell
+                        key={`td-${trIdx}-${tdIdx}`}
+                        trIdx={trIdx}
+                        trItem={trItem}
+                        tdIdx={tdIdx}
+                        prefixCls={prefixCls}
+                      ></Cell>
+                    );
+                  })}
               </tr>
             );
           })}
@@ -78,4 +68,4 @@ export const RCeditable: React.FC<Props> = (props) => {
   );
 };
 
-export default RCeditable;
+export default RcEditable;
