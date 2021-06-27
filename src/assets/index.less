@@ -26,22 +26,37 @@
     td {
     position: relative;
     box-sizing: border-box;
-    padding: 0;
+    padding: 10;
     white-space: normal;
     word-break: break-word;
     border: none;
     vertical-align: top;
-    p,div{
-        outline: none;
-        margin: 0;
-        padding: 5px;
+    p{
+        outline: 0;
     }
   }
   tr{
       height: 30px;
   }
   &-td-content{
+      padding: 4px 8px;
+      font-size: 15px;
+      line-height: 1.74;
+      *{
+        min-height: 20px;
+      }
+      p{
+          margin: 0;
+      }
+    >div{
+        outline: none;
+        white-space: pre-wrap;
+    }
       
+  }
+  &-td-content-p{
+    margin: 0;
+    min-height: 24px;
   }
   &-td-bg{
     position: absolute;
@@ -96,8 +111,4 @@
     }
     
 }
-
-
-  
-
 }
