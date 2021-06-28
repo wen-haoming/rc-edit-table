@@ -21,7 +21,17 @@
   line-height: @line-height;
   border-spacing:0;
   // ================= Global =================
-
+  p{
+    outline: 0;
+  }
+  h1,h2,h3,h4,h5,h6{
+    margin: 0;
+  }
+  h1{
+    line-height: 36px;
+    font-size: 28px;
+    margin: 7px 0px;
+  }
     th,
     td {
     position: relative;
@@ -31,9 +41,6 @@
     word-break: break-word;
     border: none;
     vertical-align: top;
-    p{
-        outline: 0;
-    }
   }
   tr{
       height: 30px;
@@ -42,8 +49,10 @@
       padding: 4px 8px;
       font-size: 15px;
       line-height: 1.74;
-      *{
-        min-height: 20px;
+      .filler{
+        text-indent: 0;
+        vertical-align: baseline;
+        // font-size: 1em;
       }
       p{
           margin: 0;
@@ -56,7 +65,7 @@
   }
   &-td-content-p{
     margin: 0;
-    min-height: 24px;
+    min-height: 1em;
   }
   &-td-bg{
     position: absolute;

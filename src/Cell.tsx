@@ -21,31 +21,39 @@ const CellComp: React.FC<Props> = (props) => {
   const contentRef = useRef<HTMLElement>(null);
   const tdBgRef = useRef<HTMLElement>(null);
 
-  const handleKeyup = (e) => {
-    const selection = window.getSelection();
-    //  如果该单元格内没有元素的话，第一个内容的第一行是p节点来填充，而不是一个 content节点
-    if (contentRef.current && !contentRef.current.childNodes.length) {
+
+  const handleKeyDown = ()=>{
+     //  如果该单元格内没有元素的话，第一个内容的第一行是p节点来填充，而不是一个 content节点
+     if (contentRef.current && !contentRef.current.childNodes.length) {
       const pNode = document.createElement('p');
+      const spanNode = document.createElement('span');
+      spanNode.className="filler"
+      // pNode.appendChild(spanNode)
       pNode.className = `${prefixCls}-td-content-p`;
       contentRef.current.append(pNode);
     }
+  }
+
+  const handleKeyup = (e) => {
+    const selection = window.getSelection();
+   
 
     const currentNode = findNodeType(selection?.focusNode, 'ELEMENT_NODE');
 
     const startStr = currentNode?.innerText || '';
 
     if (startStr.substring(0, 2) === '# ') {
-       md2Html.transformH1(currentNode, prefixCls);
+       md2Html.transformHDom(currentNode, prefixCls,'h1');
     }else if(startStr.substring(0, 3) === '## '){
-      md2Html.transformH2(currentNode, prefixCls);
+      md2Html.transformHDom(currentNode, prefixCls,'h2');
     }else if(startStr.substring(0, 4) === '### '){
-      md2Html.transformH3(currentNode, prefixCls);
+      md2Html.transformHDom(currentNode, prefixCls,'h3');
     }else if(startStr.substring(0, 5) === '#### '){
-      md2Html.transformH4(currentNode, prefixCls);
+      md2Html.transformHDom(currentNode, prefixCls,'h4');
     }else if(startStr.substring(0, 6) === '##### '){
-      md2Html.transformH5(currentNode, prefixCls);
+      md2Html.transformHDom(currentNode, prefixCls,'h5');
     }else if(startStr.substring(0, 7) === '###### '){
-      md2Html.transformH6(currentNode, prefixCls);
+      md2Html.transformHDom(currentNode, prefixCls,'h6');
     }
   };
 
@@ -60,7 +68,7 @@ const CellComp: React.FC<Props> = (props) => {
   return (
     <td onClick={handleClickTd}>
       <div className={classNames(`${prefixCls}-td-content`)}>
-        <div ref={contentRef} suppressContentEditableWarning onKeyUp={handleKeyup} contentEditable>
+        <div ref={contentRef} suppressContentEditableWarning onKeyUp={handleKeyup} onKeyDown={handleKeyDown} contentEditable>
           {/* {trItem[tdIdx]} */}
         </div>
       </div>
